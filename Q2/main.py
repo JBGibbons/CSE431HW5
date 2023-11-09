@@ -166,29 +166,51 @@ def insertionSortTim(arr, l, r):
 
 mergeSortTime = []
 insertionSortTime = []
-timSortTime = []
+timSortTime50 = []
+timSortTime150 = []
+timSortTime500 = []
+timSortTime1000 = []
 t = 0
-k = 32
+k = 1000
 for test in range(150):
     data = createData(t)
     data2 = deepcopy(data)
     data3 = deepcopy(data)
+    data4 = deepcopy(data)
+    data5 = deepcopy(data)
+    data6 = deepcopy(data)
     executionTimeM = timeit.timeit(lambda: mergeSort(data, 0, len(data)-1), number=10)
     mergeSortTime.append((len(data), executionTimeM))
     executionTimeI = timeit.timeit(lambda: insertionSort(data2), number = 10)
     insertionSortTime.append((len(data2), executionTimeI))
-    executionTimeT = timeit.timeit(lambda: mergeSortTim(data3, k), number = 10)
-    timSortTime.append((len(data3), executionTimeT))
-    t += 10
+    executionTimeT = timeit.timeit(lambda: mergeSortTim(data3, 50), number = 10)
+    timSortTime50.append((len(data3), executionTimeT))
+    executionTimeT = timeit.timeit(lambda: mergeSortTim(data4, 150), number = 10)
+    timSortTime150.append((len(data4), executionTimeT))
+    executionTimeT = timeit.timeit(lambda: mergeSortTim(data5, 500), number = 10)
+    timSortTime500.append((len(data5), executionTimeT))
+    executionTimeT = timeit.timeit(lambda: mergeSortTim(data6, 1000), number = 10)
+    timSortTime1000.append((len(data6), executionTimeT))
+
+    t += 10   
 
 dataCountM, timeM = zip(*mergeSortTime)
-plt.plot(dataCountM, timeM, linestyle = '--', label = 'MergeSort')
+plt.plot(dataCountM, timeM, linestyle = '-', label = 'MergeSort')
 
 dataCountI, timeI = zip(*insertionSortTime)
 plt.plot(dataCountI, timeI, linestyle = '-', label = 'InsertionSort')
 
-dataCountT, timeT = zip(*timSortTime)
-plt.plot(dataCountT, timeT, linestyle = '-.', label = 'TimSort')
+dataCountT, timeT = zip(*timSortTime50)
+plt.plot(dataCountT, timeT, linestyle = '-', label = 'TimSort')
+
+dataCountT, timeT = zip(*timSortTime150)
+plt.plot(dataCountT, timeT, linestyle = '-', label = 'TimSort')
+
+dataCountT, timeT = zip(*timSortTime500)
+plt.plot(dataCountT, timeT, linestyle = '-', label = 'TimSort')
+
+dataCountT, timeT = zip(*timSortTime1000)
+plt.plot(dataCountT, timeT, linestyle = '-', label = 'TimSort')
 
 plt.legend(loc='upper left')
 plt.show()
